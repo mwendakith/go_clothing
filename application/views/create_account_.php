@@ -6,7 +6,7 @@
 
 
 
-            <form class='form-horizontal col-sm-6 col-sm-offset-3' method="post" action="<?php echo site_url('main_/create_account'); ?>">
+            <form class='form-horizontal col-sm-6 col-sm-offset-3' method="post" action="<?php echo site_url('requests_/create_account'); ?>">
                 <div class='panel-body'>
 
                     <div class='form-group'>

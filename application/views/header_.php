@@ -36,43 +36,73 @@
                         <span class='icon-bar'></span>
                         <span class='icon-bar'></span>
                     </button>
-                    <a class='navbar-brand' href='<?php echo base_url(); ?>'><img src='<?php echo base_url('images/logo.png'); ?>'  alt='logo'><h1 class='hide'>Go Fashion.</h1></a>
+                    <a class='navbar-brand' href='<?php echo base_url(); ?>'><img src='<?php echo base_url('images/go_logo.jpg'); ?>'  alt='logo'><h1 class='hide'>Go Fashion.</h1></a>
                 </div>
 
                 <!-- Collect the nav links, forms, and other content for toggling -->
                 <div class='collapse navbar-collapse navbar-right' id='bs-example-navbar-collapse-1'>
 
                     <ul class='nav navbar-nav'>        
-                        <li class='dropdown'>
-                            <a href='#' class='dropdown-toggle' data-toggle='dropdown'>Collections <span class='caret'></span></a>
-                            <ul class='dropdown-menu' role='menu'>
-                                <?php
-                                foreach ($category as $value) {
-                                    echo "<li><a href='" . site_url('main_/category/' . $value->id) . "'>" . $value->name . "</a></li>";
-                                }
-                                ?>
 
-                            </ul>
-                        </li>
-                        
-                        <?php 
-                        if($this->session->userdata("status") == 4){
+
+                        <?php
+                        if ($this->session->userdata("status") > 3) {
+//
                             echo "<li class='dropdown'>
-                            <a href='#' class='dropdown-toggle' data-toggle='dropdown'>Admin <span class='caret'></span></a>
-                            <ul class='dropdown-menu'>
-                                <li><a href='" . site_url('main_/product') . "'>Products</a></li>
-                                <li><a href='" . site_url('main_/category') . "'>Categories</a></li>
-                                <li><a href='" . site_url('main_/designer') . "'>Designers</a></li>
-                                <li><a href='" . site_url('main_/stock') . "'>Stock</a></li>
+                            <a href='#' class='dropdown-toggle' data-toggle='dropdown'>Products<span class='caret'></span></a>
+                            <ul class='dropdown-menu'><li><a href='" . site_url('main_/product') . "'>Add Product</a></li>                                
+                                <li><a href='" . site_url('main_/view_products') . "'>View Products</a></li>
+                                <li><a href='" . site_url('main_/category') . "'>Add Categories</a></li>
+                                <li><a href='" . site_url('main_/view_categories') . "'>View Categories</a></li>
+                                <li><a href='" . site_url('main_/stock') . "'>Add Stock</a></li>
+                                <li><a href='" . site_url('main_/view_stock') . "'>View Stock</a></li>
+                                    </ul></li>
+                                  
+                                    
+                                    <li class='dropdown'>
+                            <a href='#' class='dropdown-toggle' data-toggle='dropdown'>Product Categories<span class='caret'></span></a>
+                            <ul class='dropdown-menu'><li><a href='" . site_url('main_/product_category') . "'>Add</a></li>                                
+                                <li><a href='" . site_url('main_/category') . "'>View</a></li>
+                                    </ul></li>
+                                    
+                                    <li class='dropdown'>
+                            <a href='#' class='dropdown-toggle' data-toggle='dropdown'>Designers<span class='caret'></span></a>
+                            <ul class='dropdown-menu'><li><a href='" . site_url('main_/designer') . "'>Add</a></li>                                
+                                <li><a href='" . site_url('main_/category') . "'>View</a></li>
+                                    </ul></li>
+                                    
+                                    <li class='dropdown'>
+                            <a href='#' class='dropdown-toggle' data-toggle='dropdown'>Users<span class='caret'></span></a>
+                            <ul class='dropdown-menu'><li><a href='" . site_url('main_/stock') . "'>Add</a></li>                                
+                                <li><a href='" . site_url('main_/view_users') . "'>View</a></li>
+                                    </ul></li>";
+
                                 
-                            </ul>
-                        </li>";
+                            //echo "</li>";
                         }
-                        //<li><a href='lookbook.html'>Look book</a></li>
+                        
+                        else {
+                            echo
+                            " <li class='dropdown'>
+                            <a href='#' class='dropdown-toggle' data-toggle='dropdown'>Categories <span class='caret'></span></a>
+                            <ul class='dropdown-menu' role='menu'>";
+
+                            foreach ($category as $value) {
+                                echo "<li><a href='" . site_url('main_/view_category/' . $value->id) . "'>" . $value->name . "</a></li>";
+                            }
+
+                            echo "</ul> </li>";
+                            
+                             if ($this->session->userdata("status") != 4 || $this->session->userdata("status") != 5) {
+                                echo "<li><a href='" . site_url('main_/collection') . "'>collection</a></li>";
+                                echo "<li><a href='" . site_url('main_/category_search') . "'>category search</a></li>";
+                            }
+                        }
                         ?>
                         
-                        <li><a href='<?php echo site_url('main_/checkout'); ?>'>checkout</a></li>
-                        <li><a href='<?php echo site_url('main_/collection'); ?>'>collection</a></li>
+
+                        
+                        
                     </ul>
 
                     <form class='navbar-form navbar-left searchbar' role='search' method="post" action="<?php echo site_url('main_/locate'); ?>">
@@ -82,47 +112,52 @@
                         <input type='submit' class='btn btn-inverse' onclick='' value="search">
                     </form>
                     <ul class='nav navbar-nav'>
-                        <?php 
-                        if($this->session->userdata("id") == NULL){
+                        <?php
+                       
+                        if ($this->session->userdata("id") == NULL) {
+                            
                             echo "<li><a href='#'  data-toggle='modal' data-target='#login'><span class='glyphicon glyphicon-user'></span> Login / Register</a></li>";
-                        }
-                        else{
-                            echo "<li><a href='" . site_url('main_/logout')  . "'> hi " . $this->session->userdata("name") . "&nbsp; &nbsp; Logout</a></li>
+                        } else {
+                            
+                            echo "<li class='dropdown'><a href='#' class='dropdown-toggle' data-toggle='dropdown'> hi " . $this->session->userdata("name") . "<span class='caret'></span></a>";
+                            echo "<ul class='dropdown-menu' role='menu'>";
+                            echo "<li><a href='" . site_url('main_/my_profile') . "'>My Profile</a></li>";
+                            echo "<li><a href='" . site_url('main_/my_likes') . "'>My Likes</a></li>";
+                            echo "<li><a href='" . site_url('main_/my_purchases') . "'>My Purchases</a></li>";
+                            
+                            echo "</ul> </li>";
+                            
+                            echo  "<li><a href='" . site_url('main_/logout') . "'>Logout</a></li>";
+                            if ($this->session->userdata("status") < 4) {
+                                echo "<li><a href='" . site_url('main_/checkout') . "'>checkout</a></li>";
+
+                                echo "
                                 <li class='dropdown'>
                             <a href='#' class='dropdown-toggle' data-toggle='dropdown'><span class='glyphicon glyphicon-shopping-cart'></span> Cart <span class='cart-counter'>{$count}</span> <span class='caret'></span></a>
                             <div class='dropdown-menu mini-cart'>";
-                            
-                            foreach ($minicart as $value) {
-                                echo "<div class='row product-list'>
-                                    <div class='col-xs-3'><a href='#'><img src='" . base_url('images/products/' . $value->thumbnail)  . "' class='img-responsive' alt='product'></a></div>
+
+                                foreach ($minicart as $value) {
+                                    echo "<div class='row product-list'>
+                                    <div class='col-xs-3'><a href='#'><img src='" . base_url('images/products/' . $value->thumbnail) . "' class='img-responsive' alt='product'></a></div>
                                     <div class='col-xs-7'><a href='#'>{$value->name}</a></div>
                                     <div class='col-xs-1'><a href='#'><i class='fa fa-close'></i></a></div>
                                 </div>";
-                            }
+                                }
 
-//                                <div class='row product-list'>
-//                                    <div class='col-xs-3'><a href='#'><img src='images/products/1.jpg' class='img-responsive' alt='product'></a></div>
-//                                    <div class='col-xs-7'><a href='#'>White V-neck T-shirt</a></div>
-//                                    <div class='col-xs-1'><a href='#'><i class='fa fa-close'></i></a></div>
-//                                </div>
-//
-//                                <div class='row product-list'>
-//                                    <div class='col-xs-3'><a href='#'><img src='images/products/2.jpg' class='img-responsive' alt='product'></a></div>
-//                                    <div class='col-xs-7'><a href='#'>White V-neck T-shirt</a></div>
-//                                    <div class='col-xs-1'><a href='#'><i class='fa fa-close'></i></a></div>
+
+//                            <div class='clearfix'>
+//                                    <a href='checkout.html' class='btn btn-primary pull-left'>Continue shopping</a> <a href='checkout.html' class='btn btn-danger pull-right'>checkout</a>
 //                                </div>
 
-                                echo "<div class='clearfix'>
-                                    <a href='checkout.html' class='btn btn-primary pull-left'>Continue shopping</a> <a href='checkout.html' class='btn btn-danger pull-right'>checkout</a>
-                                </div>
+                                echo "
 
                             </div>
                         </li>";
+                            }
                         }
-                        
                         ?>
-                        
-                        
+
+
                     </ul>
                 </div><!-- Navbar-collapse -->
             </div><!-- container-fluid -->

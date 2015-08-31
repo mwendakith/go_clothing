@@ -25,6 +25,7 @@ class Cart extends MY_Model {
     
     
     
+    
     public function flush() {
         $current_time = time();
         $that_time = $current_time - (60 * 60 * 24 * 30 * 6);
@@ -46,6 +47,7 @@ class Cart extends MY_Model {
             $this->quantity = $number + $row->quantity;
             
         } else {
+            
             $this->quantity = $number;
             
         }
@@ -53,7 +55,12 @@ class Cart extends MY_Model {
         $this->customer_id = $cust;
             $this->stock_id = $prod;
             $this->date = time();
-            $this->save();
+            if($this->quantity > 0){
+                $this->save();
+            }
+            else{
+                $this->delete();
+            }
     }
 
     public function edit($id_, $stock_, $number) {
@@ -68,8 +75,14 @@ class Cart extends MY_Model {
     public function remove($param) {
         $this->db->delete('cart', array('id' => $param));
     }
+     public function get_price($param) {
+        $query = $this->db->get_where('stock', array('id' => $param));
+        $row = $query->row();
+        return $row->price;
+    }
 
-    public function sale($param) {
+    public function sale() {
+        $param = $this->session->userdata("id");
         $data = array(
             'customer_id' => $param,
             'amount' => 0,
@@ -82,12 +95,12 @@ class Cart extends MY_Model {
 
         $query = $this->db->get_where('cart', array('customer_id' => $param));
 
-        foreach ($query->result as $value) {
-            $price = $this->get_price($value->id);
+        foreach ($query->result() as $value) {
+            $price = $this->get_price($value->stock_id);
 
             $data = array(
                 'transaction_id' => $transaction_id,
-                'stock_id' => $value->id,
+                'stock_id' => $value->stock_id,
                 'quantity' => $value->quantity,
                 'price' => $price,
             );
@@ -101,11 +114,7 @@ class Cart extends MY_Model {
         $this->db->delete('cart', array('customer_id' => $param));
     }
 
-    public function get_price($param) {
-        $query = $this->db->get_where('stock', array('id' => $param));
-        $row = $query->row();
-        return $row->price;
-    }
+   
     
     
 

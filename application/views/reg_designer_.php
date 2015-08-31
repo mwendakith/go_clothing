@@ -2,7 +2,7 @@
 
     <!-- form -->
     <div class="content inside-page contact">
-        <div class="breadcrumb"><a href="<?php echo site_url(); ?>">Home</a> / Register Designer</div>
+        <div class="breadcrumb"><a href="<?php echo site_url('main_/admin'); ?>">Admin Home</a> / Register Designer</div>
         <h2 class="title">Designers</h2>
 
 
@@ -20,7 +20,7 @@
                 <div class="location col-sm-6 col-sm-offset-3">
                     <h4>Register Designer</h4>
                     
-                    <form role="form" method="post" action="<?php echo site_url('main_/reg_designer'); ?>">
+                    <form role="form" method="post" action="<?php echo site_url('requests_/reg_designer'); ?>">
                         <div class="form-group">	
                             <input type="text" class="form-control" id="name" placeholder="Name" name="name">
                         </div>

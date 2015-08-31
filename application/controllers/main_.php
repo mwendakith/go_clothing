@@ -5,20 +5,108 @@ if (!defined('BASEPATH'))
 
 class Main_ extends CI_Controller {
 
-    public function index() {
+    public function index($param = 0) {
         $this->loader('homepage_');
+    }
+    
+    public function access_control() {
+        if($this->session->userdata("status") < 4){
+            redirect('main_/index');
+        }
+    }
+    
+    public function admin() {
+        $this->access_control();
+        $this->db->select_sum('amount');
+        $query = $this->db->get('transactions');
+        $my_array = array(
+            'trans_row' => $query->row(),
+        );
+        
+        $this->loader('admin_home_', $my_array);
+        
     }
 
     public function checkout() {
+        $this->loader('checkout_');
+    }
+    
+    public function edit_product($param) {
+        $this->access_control();
+        $this->load->model("Products");
+        $prod = new Products();
+        $prod->load($param);
+        $query = $this->db->get("designers");
+        $my_array = array(
+            'designers' => $query->result(),
+            'success' => FALSE,
+            'product' => $prod,
+        );
+        $this->loader('reg_product_', $my_array);
+        
+    }
+    
+    public function my_likes() {
+        $this->load->model("Products");
+        $prod = new Products();
+        $my_array = array(
+            'table' => $prod->get_likes(),
+        );
+        $this->loader('my_likes_', $my_array);
+    }
+    
+    public function my_purchases() {
+        $this->load->model("Products");
+        $prod = new Products();
+        $my_array = array(
+            'table' => $prod->get_purchases(),
+        );
+        $this->loader('my_purchases_', $my_array);
+    }
+    
+    
+    
+    public function purchase() {
+        $this->input->post("total");
         $this->load->model("Cart");
-        $shop = new Cart();
-        $shopcart = $shop->get_cart();
+        $my_cart = new Cart();
+        $my_cart->sale();
+        $this->loader('successful_purchase_');
+    }
+    
+    public function view_products() {
+        $this->access_control();
+        $result = $this->db->get('products');
+        $my_array = array(
+            'products' => $result->result(),
+        );
+        $this->loader('view_products_', $my_array);
+    }
+    
+    public function view_categories() {
+        $this->access_control();
+        $this->loader('view_categories_');
+    }
+    
+    public function view_users() {
+        $this->access_control();
+        $this->load->model("Users");
+        $user = new Users();
+        $my_array = array(
+            'users' => $user->get_users(TRUE),
+        );
+        $this->loader('view_users_', $my_array);
+    }
+    
+    public function view_stock() {
+        $this->access_control();
+        $this->load->model("Stock");
+        $sto = new Stock();
         
         $my_array = array(
-            'carts' => $shopcart,
+            'stock' => $sto->view_stock(),
         );
-        
-        $this->loader('checkout_', $my_array);
+        $this->loader('view_stock_', $my_array);
     }
 
     public function locate() {
@@ -27,6 +115,18 @@ class Main_ extends CI_Controller {
         $search = new Search();
         $result = $search->results($par);
 
+        $my_array = array(
+            'collection' => $result,
+        );
+
+        $this->loader('collections_', $my_array);
+    }
+    
+    public function view_category($param) {
+        $this->load->model("Product_categories");
+        
+        $pro = new Product_categories();
+        $result  = $pro->category_name($param);
         $my_array = array(
             'collection' => $result,
         );
@@ -55,6 +155,15 @@ class Main_ extends CI_Controller {
         $this->loader('reg_product_', $my_array);
     }
     
+    public function product_category($param = FALSE) {
+        $query = $this->db->get("products");
+        $my_array = array(
+            'products' => $query->result(),
+            'success' => $param,
+        );
+        $this->loader('reg_product_category_', $my_array);
+    }
+    
     public function add_to_cart() {
         $prod = $this->input->post("product_id");
         $size = $this->input->post("size");
@@ -78,6 +187,7 @@ class Main_ extends CI_Controller {
     }
 
     public function stock($param = FALSE) {
+        $this->access_control();
         $query = $this->db->get("products");
         $my_array = array(
             'prod' => $query->result(),
@@ -87,6 +197,7 @@ class Main_ extends CI_Controller {
     }
 
     public function designer($param = FALSE) {
+        $this->access_control();
         $my_array = array('success' => $param);
         $this->loader('reg_designer_', $my_array);
     }
@@ -97,6 +208,19 @@ class Main_ extends CI_Controller {
             'collection' => $query->result(),
         );
         $this->loader('collections_', $my_array);
+    }
+    
+    public function category_results() {
+        $cats = $this->input->post("categories");
+        $this->load->model("Search");
+        $look = new Search();
+        $collection = $look->search_categories($cats);
+        $my_array = array(
+            'collection' => $collection,
+        );
+        $this->loader('collections_', $my_array);
+        
+        
     }
 
     public function account() {
@@ -123,104 +247,8 @@ class Main_ extends CI_Controller {
         $this->loader('product_', $my_array);
     }
 
-    public function reg_category() {
-        $this->load->model("Categories");
-
-        $this->Categories->name = $this->input->post("name");
-        $this->Categories->description = $this->input->post("description");
-
-
-        $this->Categories->save();
-        $this->category(TRUE);
-    }
-
-    public function reg_stock() {
-        $this->load->model("Stock");
-
-        $this->Stock->product_id = $this->input->post("product_id");
-        $this->Stock->size = $this->input->post("size");
-        $this->Stock->price = $this->input->post("price");
-
-
-        $this->Stock->save();
-        $this->stock(TRUE);
-    }
-
-    public function create_account() {
-        $this->load->model("Users");
-        $user = new Users();
-        $user->title_id = $this->input->post("title_id");
-        $user->surname = $this->input->post("surname");
-        $user->f_name = $this->input->post("f_name");
-        $user->email = $this->input->post("email");
-        $user->password = sha1($this->input->post("password"));
-        $user->status = 2;
-        $user->save();
-        $this->index();
-    }
-
-    public function reg_designer() {
-        $this->load->model("Designers");
-
-        $this->Designers->name = $this->input->post("name");
-        $this->Designers->save();
-        //$bool = TRUE;
-        //redirect('main_/designer/' . $bool);
-        $this->designer(TRUE);
-    }
-
-    public function reg_product() {
-        $this->load->model("Products");
-        $product = new Products();
-        $product->name = $this->input->post("name");
-        $product->designer_id = $this->input->post("designer");
-        $product->description = $this->input->post("description");
-        $product->date_added = time();
-
-
-        $config['upload_path'] = './images/products/';
-        $config['allowed_types'] = 'gif|jpg|png|jpeg';
-        $config['max_size'] = '10000';
-        $config['max_width'] = '1024';
-        $config['max_height'] = '768';
-        $config['remove_spaces'] = TRUE;
-        $this->load->library('upload', $config);
-
-        $check_file_upload = FALSE;
-        if (isset($FILES['image']['error']) && $FILES['image']['error'] != 4) {
-            $check_file_upload = TRUE;
-        }
-
-        if ($this->upload->do_upload('image')) {
-            $upload_data = $this->upload->data();
-            if (isset($upload_data['file_name'])) {
-                $product->image = $upload_data['file_name'];
-
-                $config['image_library'] = 'gd2';
-                $config['source_image'] = './images/products/' . $upload_data['file_name'];
-                $config['create_thumb'] = TRUE;
-                $config['maintain_ratio'] = FALSE;
-                $config['width'] = 100;
-                $config['height'] = 125;
-
-                $this->load->library('image_lib', $config);
-
-                $this->image_lib->resize();
-
-
-                $thumb = $upload_data['raw_name'] . "_thumb" . $upload_data['file_ext'];
-                $product->thumbnail = $thumb;
-            }
-
-            $product->save();
-            $this->product(TRUE);
-        }
-
-        if ($check_file_upload && !$this->upload->do_upload('image')) {
-            $this->upload->display_errors();
-        }
-        // $this->upload->display_errors();
-        $this->product();
+    public function category_search() {
+        $this->loader('categories_');
     }
 
     public function loader($param, &$data_array = []) {
@@ -233,16 +261,25 @@ class Main_ extends CI_Controller {
         // $this->db->last_query();
         $count = $this->Search->count_cart_rows();
         
+        if($param == 'checkout_'){
+            $data_array['carts'] = $minicart;
+        }
+        else if($param == 'categories_' || $param == 'reg_product_category_'|| $param == 'view_categories_'){
+            $data_array['cats'] = $cats;
+        }
+        
 
         $this->load->view("header_", array('category' => $cats,
             'minicart' => $minicart,
             'count' => $count,));
+        $this->load->view("scripts_");
         $this->load->view($param, $data_array);
         $this->load->view("footer_");
-        $this->load->view("scripts_");
+        
         if ($this->session->userdata("id") == NULL) {
             $this->load->view("login_modal_");
         }
+        $this->load->view("message_modal_");
         $this->load->view("end_");
     }
 

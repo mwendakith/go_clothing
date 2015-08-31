@@ -29,6 +29,8 @@ class Search extends CI_Model{
         
     }
     
+    
+    
     public function product_designer($param) {
         $this->db->select('products.id, products.name, products.designer_id, products.thumbnail, products.image, products.description');
         //$this->db->select('*');
@@ -46,6 +48,8 @@ class Search extends CI_Model{
             return $query->result();
         }
     }
+    
+    
     
     public function product_category($param) {
         $this->db->select('products.id, products.name, products.designer_id, products.thumbnail, products.image, products.description');
@@ -82,15 +86,24 @@ class Search extends CI_Model{
         }
     }
     
+    public function search_by_price() {
+        $sql = "SELECT AVG(price) AS avg_price, product_id, COUNT(product_id) AS size_number "
+                . "FROM stock "
+                . "GROUP BY product_id";
+        return $sql;
+    }
+    
     public function search_categories($param) {
-        //$sql = "SELECT `product_id` FROM `product_categories` WHERE `category_id` = ";
+        //$sql = "SELECT DISTINCT p.id, p.name, p.image, p.thumbnail, p.description, p.likes FROM product_categories pc, products p WHERE p.id = pc.product_id AND p.id IN ";
+        $sql = "SELECT * FROM `products` WHERE `id` IN ";
         
-        foreach ($param as $key => $value) {
-            $sql .= "SELECT `product_id` FROM `product_categories` WHERE `category_id` = ";
-            $sql .= $value . "INTERSECTION ";
+        foreach ($param as $value) {
+            
+            $sql .= "(SELECT `product_id` FROM `product_categories` WHERE `category_id` = ";
+            $sql .= $value . ") AND `id` IN ";
         }
         
-        $rest = substr($sql, 0, (strlen($sql) - 6));
+        $rest = substr($sql, 0, (strlen($sql) - 13));
         $rest .= ";";
         
         $query = $this->db->query($rest);

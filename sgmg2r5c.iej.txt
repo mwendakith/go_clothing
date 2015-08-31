@@ -1,0 +1,92 @@
+﻿ksadhfkajdsf
+
+# Please enter the commit message for your changes. Lines starting
+# with '#' will be ignored, and an empty message aborts the commit.
+# On branch master
+# Your branch is up-to-date with 'origin/master'.
+#
+# Changes to be committed:
+#	new file:   application/controllers/admin_.php
+#	modified:   application/controllers/main_.php
+#	new file:   application/controllers/requests_.php
+#	modified:   application/models/cart.php
+#	new file:   application/models/product_categories.php
+#	modified:   application/models/search.php
+#	modified:   application/models/transactions.php
+#	modified:   application/models/users.php
+#	new file:   application/views/admin_home_.php
+#	new file:   application/views/categories_.php
+#	modified:   application/views/checkout_.php
+#	modified:   application/views/create_account_.php
+#	modified:   application/views/footer_.php
+#	modified:   application/views/header_.php
+#	modified:   application/views/homepage_.php
+#	modified:   application/views/product_.php
+#	modified:   application/views/reg_category_.php
+#	modified:   application/views/reg_designer_.php
+#	modified:   application/views/reg_product_.php
+#	new file:   application/views/reg_product_category_.php
+#	modified:   application/views/reg_stock_.php
+#	new file:   application/views/successful_purchase_.php
+#	new file:   application/views/view_categories_.php
+#	new file:   application/views/view_products_.php
+#	new file:   assets/js/adapters/standalone-framework.js
+#	new file:   assets/js/adapters/standalone-framework.src.js
+#	new file:   assets/js/highcharts-3d.js
+#	new file:   assets/js/highcharts-3d.src.js
+#	new file:   assets/js/highcharts-more.js
+#	new file:   assets/js/highcharts-more.src.js
+#	new file:   assets/js/highcharts.js
+#	new file:   assets/js/highcharts.src.js
+#	new file:   assets/js/modules/broken-axis.js
+#	new file:   assets/js/modules/broken-axis.src.js
+#	new file:   assets/js/modules/canvas-tools.js
+#	new file:   assets/js/modules/canvas-tools.src.js
+#	new file:   assets/js/modules/data.js
+#	new file:   assets/js/modules/data.src.js
+#	new file:   assets/js/modules/drilldown.js
+#	new file:   assets/js/modules/drilldown.src.js
+#	new file:   assets/js/modules/exporting.js
+#	new file:   assets/js/modules/exporting.src.js
+#	new file:   assets/js/modules/funnel.js
+#	new file:   assets/js/modules/funnel.src.js
+#	new file:   assets/js/modules/heatmap.js
+#	new file:   assets/js/modules/heatmap.src.js
+#	new file:   assets/js/modules/no-data-to-display.js
+#	new file:   assets/js/modules/no-data-to-display.src.js
+#	new file:   assets/js/modules/solid-gauge.js
+#	new file:   assets/js/modules/solid-gauge.src.js
+#	new file:   assets/js/modules/treemap.js
+#	new file:   assets/js/modules/treemap.src.js
+#	new file:   assets/js/themes/dark-blue.js
+#	new file:   assets/js/themes/dark-green.js
+#	new file:   assets/js/themes/dark-unica.js
+#	new file:   assets/js/themes/gray.js
+#	new file:   assets/js/themes/grid-light.js
+#	new file:   assets/js/themes/grid.js
+#	new file:   assets/js/themes/sand-signika.js
+#	new file:   assets/js/themes/skies.js
+#	modified:   assets/script.js
+#	renamed:    images/carmen-electra_3669947-500x625.jpeg -> images/carmen.jpeg
+#	renamed:    images/23776846-origpic-a90d36.jpg_0_0_100_100_500_625_85.jpg -> images/fj.jpg.jpg
+#	renamed:    images/23773433-origpic-0e0561.jpg_0_0_100_100_500_625_85.jpg -> images/grey sweater.jpg
+#	renamed:    images/actress-beautiful-blair-blair-waldorf-Favim.com-1219665.png -> images/ha.png
+#	renamed:    images/tcl_wake-bear_americanapparel_black_model-500x625.png -> images/hd.png
+#	renamed:    images/next-level__hot-pink_mockup-500x625.png -> images/jd.png
+#	renamed:    images/ss041_front_crop_1415010201_500x625.jpg -> images/jdaa.jpg
+#	renamed:    images/next-level__black_mockup1-500x625.png -> images/jj.png
+#	renamed:    images/smd026_back_1408618204_crop_1415613978_500x625.jpg -> images/kdkd.jpg
+#	renamed:    images/red-mens-gildan-white-squirrel-500x625.jpg -> images/kdkdkd.jpg
+#	renamed:    images/navy-mens-gildan-white-sign-500x625.jpg -> images/navy.jpg
+#	renamed:    images/rompergreenyellow-500x625.jpg -> images/romper.jpg
+#	modified:   time.php
+#
+# Untracked files:
+#	144r5scc.nga.txt
+#	avzxy4uy.csy.txt
+#	mqyu3515.qus.txt
+#	odmnkcex.hwz.txt
+#	weik2nww.i3a.txt
+#	zgwfe2vk.mfc.txt
+#
+

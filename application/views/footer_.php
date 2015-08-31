@@ -3,7 +3,7 @@
 	<div class="pull-left">
 	<form class="navbar-form navbar-left newsletter" role="search">
         <div class="form-group">
-          <input type="text" class="form-control" placeholder="Enter Your Email Id Here">
+          <input type="text" class="form-control" placeholder="Enter Your Email Here">
         </div>
         <button type="submit" class="btn btn-inverse">Subscribe</button>
     </form>

@@ -15,4 +15,6 @@ class Transactions extends MY_Model{
     public $amount;
     
     
+    
+    
 }

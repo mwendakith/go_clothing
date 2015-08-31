@@ -8,7 +8,7 @@
 
         <div class='row'>
 
-
+            <input type="hidden" value="<?php echo site_url('requests_/like_product'); ?>" name="my_url" id ='my_url'/>
 
 
             <?php
@@ -28,7 +28,7 @@
                             <p>" . substr($value->description, 0, 20) . "...</p>
                             <a href='" . site_url('main_/product_view/' . $value->id) . "' class='btn btn-default view animated fadeInLeft'><i class='fa fa-search-plus'></i> View Detail</a>
                             <a href='#' class='btn btn-default cart animated fadeInRight'><i class='fa fa-shopping-cart'></i></a>
-                            <a href='#' class='btn btn-default wishlist  animated fadeInRight'><i class='fa fa-heart'></i></a>       					
+                            <a  data-toggle='modal' data-target='#message' class='btn btn-default wishlist  animated fadeInRight' onclick='like_product({$value->id})'><i class='fa fa-heart'></i></a>       					
                         </div>
                     </div>
                 </div>

@@ -32,5 +32,22 @@ class Stock extends MY_Model {
 
         return $query->result();
     }
+    
+    public function view_stock() {
+//        $sql = "SELECT stock.id, stock.product_id, stock.size, stock.price, product.name "
+//                . "FROM stock, products "
+//                . "WHERE stock.product_id = products.id "
+//                . "ORDER BY stock.product_id;";
+        
+        $this->db->select("stock.id, stock.product_id, stock.size, stock.price, product.name");
+        $this->db->from('stock');
+        $this->db->join('products', 'stock.product_id = products.id');
+        
+        $query = $this->db->get();
+        return $query->result();
+        
+    }
+    
+    
 
 }

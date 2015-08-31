@@ -3,7 +3,7 @@
 
     <div class="content inside-page product-details">
         <p id="this_"></p>
-        <div class="breadcrumb"><a href="<?php echo site_url(); ?>">Home</a> / <a href="collections.html">Collections</a> / <?php echo $product->name ?></div>	
+        <div class="breadcrumb"><a href="<?php echo site_url(); ?>">Home</a> / <a href="<?php echo site_url('main_/collection'); ?>">Collections</a> / <?php echo $product->name ?></div>	
         <div class="row">
             <div class="col-sm-5">
                 <div id="ProductCarousel" class="carousel slide" data-ride="carousel">
@@ -14,9 +14,9 @@
             </div>
             <div class="col-sm-6 col-sm-offset-1 information">
                 <h1><?php echo $product->name ?></h1>
-                <div class="price"><b><div id="prod_price">Kshs ***</div></b></div>
+                <div class="price"><b><div id="prod_price">Kshs </div></b></div>
                 <div class="clearfix">
-                    <div class="pull-left"><input class="form-control quantity" placeholder="Quantity" type="text" id="quantity"></div>
+                    <div class="pull-left"><input class="form-control quantity" placeholder="Quantity" type="number" id="quantity"></div>
                     <div class="pull-left">
                         <input type="hidden" name ='product_id' value="<?php echo $product->id; ?>" id="product_id">
                         <input type="hidden" name ='site_url' value="<?php echo site_url('main_/add_to_cart'); ?>" id="site_url">
@@ -62,11 +62,11 @@
                         </div>
                     </div>
                 </div>
-
+                <input type="hidden" value="<?php echo site_url('requests_/like_product'); ?>" name="my_url" id ='my_url'/>
 
 
                 <div class="clearfix">
-                    <a href="#" class="btn btn-primary"><i class="fa fa-heart"></i> Wishlist</a>
+                    <a class="btn btn-primary" data-toggle='modal' data-target='#message' <?php echo "onclick='like_product({$product->id})'"; ?>  ><i class="fa fa-heart"></i> Like</a>
                     <a href="#" class="btn btn-primary"><i class="fa fa-exchange"></i> Compare</a>
                     <a href="#" class="btn btn-primary"><i class="fa fa-envelope"></i> Send an Email</a>				
                 </div>

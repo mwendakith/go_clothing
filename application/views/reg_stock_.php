@@ -2,7 +2,7 @@
 
     <!-- form -->
     <div class="content inside-page contact">
-        <div class="breadcrumb"><a href="<?php echo site_url(); ?>">Home</a> / Register Product Sizes</div>
+        <div class="breadcrumb"><a href="<?php echo site_url('main_/admin'); ?>">Admin Home</a> / Register Product Sizes</div>
         <h2 class="title">Product Sizes</h2>
 
 
@@ -20,7 +20,7 @@
                 <div class="location col-sm-6 col-sm-offset-3">
                     <h4>Register Product Size</h4>
 
-                    <form role="form" method="post" action="<?php echo site_url('main_/reg_stock'); ?>">
+                    <form role="form" method="post" action="<?php echo site_url('requests_/reg_stock'); ?>">
                         <div class="form-group">
                             <select name='product_id'>
                                 <option value=''></option>

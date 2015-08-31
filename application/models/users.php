@@ -51,7 +51,13 @@ class Users extends MY_Model {
         );
 
         $this->session->set_userdata($user);
-        redirect("main_/index");
+        
+        if($this->status > 3){
+            redirect("main_/admin");
+        }
+        else{
+            redirect("main_/index");
+        }
     }
 
     public function registration($param) {
@@ -69,5 +75,56 @@ class Users extends MY_Model {
 
         echo $this->email->print_debugger();
     }
+    
+    public function block($param) {
+        $this->load($param);
+        if($this->status == 3){
+            $this->unblock($param);
+        }
+        else{
+            $this->status = 3;
+            $this->save();
+        }
+        
+    }
+    
+    public function unblock($param) {
+        $this->load($param);
+        $this->status = 2;
+        $this->save();
+    }
+    
+    public function set_admin($param) {
+        $this->load($param);
+        if($this->status == 4){
+            $this->unset_admin($param);
+        }
+        else{
+            $this->status = 4;
+            $this->save();
+        }
+    }
+    
+    public function unset_admin($param) {
+        $this->load($param);
+        $this->status = 2;
+        $this->save();
+    }
+    
+    public function get_users($super_admin = FALSE) {
+        $this->db->select('*');
+        $this->db->from('users');
+        if($super_admin){
+             $this->db->where('status <', 5);
+        }
+        else{
+             $this->db->where('status <', 4);
+        }
+       
+        $query = $this->db->get();
+        return $query->result();        
+    }
+    
+    
 
 }

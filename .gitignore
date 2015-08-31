@@ -8,3 +8,4 @@ application/logs/*
 !application/logs/index.html
 !application/logs/.htaccess
 /nbproject/private/
+/assets/highcharts/exporting-server/java/highcharts-export/highcharts-export-web/target/

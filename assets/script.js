@@ -14,6 +14,25 @@ function search() {
     });
 }
 
+function like_product(product_id) {
+    
+    var form_data = {
+        product_id: product_id
+    };
+    
+    var x = $('#my_url').val();
+
+    $.ajax({
+        url: x,
+        type: "POST",
+        data: form_data,
+        success: function (msg) {
+             $(".my_message").empty().append(msg);
+            
+        }
+    });
+}
+
 $('#size').change(
         function () {
             // alert('this');
@@ -182,8 +201,8 @@ $(function () {
     });
 
     $(".submit").click(function () {
-        return false;
-    })
+        
+    });
 
 });
 
